@@ -1,0 +1,64 @@
+
+{% extends "layout.html" %}
+{% block content %}
+<!-- Main jumbotron for a primary marketing message or call to action -->
+<div class="jumbotron">
+
+  <h1>Welcome to CodeStreak.io</h1>
+
+  <p>Challenge yourself to daily open-source commits on github. CodeStreak.io will watch your public activity on GitHub and send you.
+    Eloquent reminders are emailed to you near the end of the day if you haven't yet committed some open source code.</p>
+</div><!-- /.jumbotron -->
+
+<div class="body-content">
+  <div class="row">
+
+
+        {# GitHub Auth button #}
+
+        <script src="https://cdn.auth0.com/js/lock/10.5/lock.min.js"></script>
+        <script>
+            var options_signup = {
+              theme: {
+                labeledSubmitButton: false
+              },
+              allowSignUp: true,
+              allowLogin: false,
+              auth: {
+                redirectUrl: '{{ callback_url }}',
+                params: {
+                  scope: 'openid email name picture'
+                }
+              }
+            }
+
+            var options_signin = {
+              theme: {
+                labeledSubmitButton: false
+              },
+              allowSignUp: false,
+              allowLogin: true,
+              auth: {
+                redirectUrl: '{{ callback_url }}',
+                params: {
+                  scope: 'openid email name picture'
+                }
+              }
+            }
+            var lock1 = new Auth0Lock('{{ auth_id }}', '{{ auth_domain }}', options_signup);
+            var lock2 = new Auth0Lock('{{ auth_id }}', '{{ auth_domain }}', options_signin);
+        </script>
+
+
+
+        <button class="btn btn-primary" type="submit" onClick="lock1.show();">Create Your Account</button>
+
+        <span>or...</span>
+
+        <button class="btn btn-primary" type="submit" onClick="lock2.show();">Access Your Reminder Settings</button>
+
+
+  </div>
+</div>
+{% endblock %}
+

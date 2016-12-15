@@ -1,0 +1,39 @@
+
+raven==5.32.0
+requests==2.11.1
+sendgrid==3.6.3
+pygithub==1.29
+
+# Flask
+Flask==0.11.1
+Jinja2==2.8
+itsdangerous==0.24
+Werkzeug==0.11.11
+
+# databases
+Flask-SQLAlchemy==2.1
+SQLAlchemy==1.1.4
+psycopg2==2.6.2
+
+# Migrations
+Flask-Migrate==1.8.0
+
+# Forms
+Flask-WTF==0.12
+WTForms==2.1
+
+# Assets
+Flask-Assets==0.11
+cssmin>=0.2.0
+jsmin>=2.0.11
+
+# Deployment
+gunicorn==19.6.0
+
+# Auth
+pycrypto==2.6.1
+PyJWT==1.4.2
+auth0-python==2.0.1
+
+# Debug toolbar
+Flask-DebugToolbar

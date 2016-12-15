@@ -1,0 +1,18 @@
+
+{% extends "layout.html" %}
+{% block content %}
+    <h1>Your Reminder Configuration for {{ session.profile['nickname'] }}</h1>
+
+    <p>Emails will be sent to <i>{{ session.profile['email'] }}</i><p>
+
+    {% from "_formhelpers.html" import render_field %}
+    <form method=post action=".">
+        {{ form.csrf_token }}
+    <dl>
+        {{ render_field(form.enabled) }}
+    </dl>
+    <p><input class="btn btn-primary" type=submit value=Update>
+    </form>
+
+{% endblock %}
+

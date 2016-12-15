@@ -1,0 +1,1 @@
+web: gunicorn codestreak:app -w 6 --log-file -
