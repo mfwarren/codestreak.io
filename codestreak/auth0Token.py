@@ -32,7 +32,7 @@ class Auth0Token(object):
         token_payload = {
             'client_id': auth_id,
             'client_secret': auth_secret,
-            'audience': 'https://halotis.auth0.com/api/v2/'
+            'audience': 'https://halotis.auth0.com/api/v2/',
             'grant_type': 'client_credentials'
         }
 
