@@ -30,7 +30,7 @@ def register_extensions(app):
     csrf_protect.init_app(app)
     debug_toolbar.init_app(app)
     migrate.init_app(app, db)
-    if not app.config['DEBUG']:
+    if not app.config['DEBUG'] and 'SENTRY_DSN' in os.environ:
         sentry.init_app(app, dsn=os.environ['SENTRY_DSN'])
     return None
 
