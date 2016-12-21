@@ -1,11 +1,10 @@
 {
-    "addons": [
-        "auth0",
-        "heroku-postgresql",
-        "sendgrid",
-        "sentry"
-    ],
     "scripts": {
-        "test": "TEST=1 python t.py"
-    }
+        "dokku": {
+            "postdeploy": "python manage.py manage.py db upgrade"
+        }
+    },
+    "addons": [
+        "dokku-postgres"
+    ]
 }
