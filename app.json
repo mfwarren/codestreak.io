@@ -1,7 +1,7 @@
 {
     "scripts": {
         "dokku": {
-            "postdeploy": "python manage.py manage.py db upgrade"
+            "postdeploy": "python manage.py db upgrade"
         }
     },
     "addons": [
