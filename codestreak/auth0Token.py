@@ -24,7 +24,7 @@ class Auth0Token(object):
         return time.time() >= self._expires_at
 
     def get_token(self):
-        if not self.is_expired and self._token:
+        if not self.is_expired() and self._token:
             return self._token
 
         json_header = {'content-type': 'application/json'}
@@ -33,7 +33,7 @@ class Auth0Token(object):
         token_payload = {
             'client_id': auth_id,
             'client_secret': auth_secret,
-            'audience': 'https://halotis.auth0.com/api/v2/',
+            'audience': 'https://{0}/api/v2/'.format(auth_domain),
             'grant_type': 'client_credentials'
         }
 
@@ -42,3 +42,4 @@ class Auth0Token(object):
 
         self._token = token_info['access_token']
         self._expires_at = time.time() + EXPIRES_IN
+        return self._token
