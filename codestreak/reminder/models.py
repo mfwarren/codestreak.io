@@ -3,14 +3,15 @@
 import os
 
 from codestreak.database import Column, Model, SurrogatePK, db
+from codestreak.auth0Token import Auth0Token
 
 from auth0.v2.management import Auth0
+
+auth0_token = Auth0Token()
 
 # Auth0 API Client
 # https://auth0.com/docs/api/management/v2/tokens
 auth0_domain = os.environ['AUTH0_DOMAIN']
-auth0_token = os.environ['AUTH0_JWT_TOKEN']
-auth0 = Auth0(auth0_domain, auth0_token)
 
 
 class Reminder(SurrogatePK, Model):
@@ -30,6 +31,7 @@ class Reminder(SurrogatePK, Model):
     @property
     def email(self):
         # Grab the email address from Auth0.
+        auth0 = Auth0(auth0_domain, auth0_token.get_token())
         return auth0.users.get(self.auth_id)['email']
 
     def __repr__(self):
