@@ -41,11 +41,12 @@ def hourly_notification():
         event = hub_user.get_public_events()[0]  # the most recent public event
 
         last_event_time = event.created_at
-        last_event_time = last_event_time + datetime.timedelta(hours=-5)  # UTC offset for EST
-        today = datetime.datetime.now() + datetime.timedelta(hours=-5)
+        # last_event_time = last_event_time  + datetime.timedelta(hours=-5)  # UTC offset for EST
+        today = datetime.datetime.utcnow()  # + datetime.timedelta(hours=-5)
+        delta = today - last_event_time
 
-        if last_event_time.day != today.day:
-            notify('Your last commit was {}'.format(humanize.naturaltime(last_event_time)), reminder.email)
+        if last_event_time.day != today.day and delta > datetime.timedelta(hours=20):
+            notify('Your last commit was {}'.format(humanize.naturaltime(event.created_at)), reminder.email)
 
 
 class Lint(Command):
