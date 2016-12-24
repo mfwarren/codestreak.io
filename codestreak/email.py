@@ -11,6 +11,14 @@ sg = sendgrid.SendGridAPIClient(apikey=API_KEY)
 
 TEMPLATE = """{}
 
+
+
+
+
+
+
+
+
 =========
 
 A friendly nudge brought to you by CodeStreak.io.
