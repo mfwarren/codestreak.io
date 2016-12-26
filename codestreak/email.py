@@ -1,4 +1,6 @@
+# -*- coding: utf-8 -*-
 import os
+import random
 
 import sendgrid
 from sendgrid.helpers.mail import Email, Content, Mail
@@ -29,10 +31,23 @@ A Matt Warren (mattwarren.co) project.
 
 """
 
+SUBJECT_LINES = [
+    'CodeStreak.io: reminder to commit!',
+    'Even source code needs love sometimes',
+    '⏰ time to code ⏰',
+    '⭐⭐⭐ gold stars if you can push some code',
+    '🌠 Keep the streak going!',
+    'do some coding then celebrate! 🍺🍺🍻 🎉🎉🎉',
+    'keep your perfect score going 💯',
+    'coding idea: What could you automate?',
+    'how about coding hello world in a new language?',
+    'are there any libraries you are curious to try out?'
+]
+
 
 def notify(note, email_address):
 
-    subject = 'codestreak.io: reminder to commit!'
+    subject = random.choice(SUBJECT_LINES)
     message = TEMPLATE.format(note)
 
     from_address = Email('no-reply@codestreak.io', name="CodeStreak.io")
