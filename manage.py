@@ -32,10 +32,11 @@ def _make_context():
 def hourly_notification():
     from github import Github
     from codestreak.email import notify
+    from codestreak.sms import sms_notify
     import humanize
     hub = Github()
 
-    for reminder in Reminder.query.filter_by(enabled=True, email_enabled=True).all():
+    for reminder in Reminder.query.filter_by(enabled=True).all():
         hub_user = hub.get_user(reminder.slug)
 
         event = hub_user.get_public_events()[0]  # the most recent public event
@@ -46,7 +47,10 @@ def hourly_notification():
         delta = today - last_event_time
 
         if last_event_time.day != today.day and delta > datetime.timedelta(hours=20):
-            notify('Your last commit was {}'.format(humanize.naturaltime(event.created_at)), reminder.email)
+            if reminder.email_enabled:
+                notify('Your last commit was {}'.format(humanize.naturaltime(event.created_at)), reminder.email)
+            if reminder.sms_enabled:
+                sms_notify(event, reminder)
 
 
 class Lint(Command):

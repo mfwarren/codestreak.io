@@ -10,9 +10,14 @@
         {{ form.csrf_token }}
     <dl>
         {{ render_field(form.enabled) }}
+        {{ render_field(form.email_enabled) }}
+        {{ render_field(form.sms_enabled) }}
+        {{ render_field(form.sms_number) }}
     </dl>
     <p><input class="btn btn-primary" type=submit value=Update>
     </form>
+
+    <small>Note: improvements to this page are coming soon</small>
 
 {% endblock %}
 

@@ -23,6 +23,8 @@ class Reminder(SurrogatePK, Model):
     enabled = Column(db.Boolean(), default=True)
     email_enabled = Column(db.Boolean(), default=True)
     time_to_start = Column(db.Integer)
+    sms_number = Column(db.String(16))
+    sms_enabled = Column(db.Boolean(), default=False)
 
     @classmethod
     def for_username(cls, s):
