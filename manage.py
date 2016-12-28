@@ -37,20 +37,23 @@ def hourly_notification():
     hub = Github()
 
     for reminder in Reminder.query.filter_by(enabled=True).all():
-        hub_user = hub.get_user(reminder.slug)
+        try:
+            hub_user = hub.get_user(reminder.slug)
 
-        event = hub_user.get_public_events()[0]  # the most recent public event
+            event = hub_user.get_public_events()[0]  # the most recent public event
 
-        last_event_time = event.created_at
-        # last_event_time = last_event_time  + datetime.timedelta(hours=-5)  # UTC offset for EST
-        today = datetime.datetime.utcnow()  # + datetime.timedelta(hours=-5)
-        delta = today - last_event_time
+            last_event_time = event.created_at
+            # last_event_time = last_event_time  + datetime.timedelta(hours=-5)  # UTC offset for EST
+            today = datetime.datetime.utcnow()  # + datetime.timedelta(hours=-5)
+            delta = today - last_event_time
 
-        if last_event_time.day != today.day and delta > datetime.timedelta(hours=20):
-            if reminder.email_enabled:
-                notify('Your last commit was {}'.format(humanize.naturaltime(event.created_at)), reminder.email)
-            if reminder.sms_enabled:
-                sms_notify(event, reminder)
+            if last_event_time.day != today.day and delta > datetime.timedelta(hours=20):
+                if reminder.email_enabled:
+                    notify('Your last commit was {}'.format(humanize.naturaltime(event.created_at)), reminder.email)
+                if reminder.sms_enabled:
+                    sms_notify(event, reminder)
+        except Exception as ex:
+            print("Crashed on {}".format(reminder.slug))
 
 
 class Lint(Command):
