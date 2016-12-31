@@ -50,6 +50,8 @@ def hourly_notification():
             if last_event_time.day != today.day and delta > datetime.timedelta(hours=20):
                 if reminder.email_enabled:
                     notify('Your last commit was {}'.format(humanize.naturaltime(event.created_at)), reminder.email)
+            if last_event_time.day != today.day and delta > datetime.timedelta(hours=22):
+                # sending SMS cost $$.. do this less often
                 if reminder.sms_enabled:
                     sms_notify(event, reminder)
         except Exception as ex:
