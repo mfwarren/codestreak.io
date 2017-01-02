@@ -2,7 +2,7 @@
 """User views."""
 from functools import wraps
 
-from flask import Blueprint, render_template, redirect, session
+from flask import Blueprint, render_template, redirect, session, url_for
 
 from codestreak.reminder.models import Reminder
 from codestreak.reminder.forms import EditReminder
@@ -29,4 +29,5 @@ def settings():
     if form.validate_on_submit():
         form.populate_obj(reminder)
         reminder.save()
+        return redirect(url_for('reminder.settings'))
     return render_template('reminders/settings.html', form=form)

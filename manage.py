@@ -33,6 +33,7 @@ def hourly_notification():
     from github import Github
     from codestreak.email import notify
     from codestreak.sms import sms_notify
+    from pytz import timezone
     import humanize
     hub = Github()
 
@@ -46,6 +47,12 @@ def hourly_notification():
             # last_event_time = last_event_time  + datetime.timedelta(hours=-5)  # UTC offset for EST
             today = datetime.datetime.utcnow()  # + datetime.timedelta(hours=-5)
             delta = today - last_event_time
+
+            if reminder.timezone is not None and reminder.timezone != '':
+                user_local_time = timezone(reminder.timezone).fromutc(today)
+                if user_local_time.hour < 13:
+                    # avoid nagging notifications in the AM
+                    continue
 
             if last_event_time.day != today.day and delta > datetime.timedelta(hours=20):
                 if reminder.email_enabled:

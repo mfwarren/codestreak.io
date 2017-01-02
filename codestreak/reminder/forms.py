@@ -1,7 +1,8 @@
 # -*- coding: utf-8 -*-
 """User forms."""
 from flask_wtf import Form
-from wtforms import BooleanField, StringField
+import pytz
+from wtforms import BooleanField, StringField, SelectField
 from wtforms.validators import ValidationError
 
 from twilio.rest.lookups import TwilioLookupsClient
@@ -14,10 +15,15 @@ class EditReminder(Form):
     email_enabled = BooleanField('Notify By Email Enabled')
     sms_enabled = BooleanField('Notify By SMS Enabled')
     sms_number = StringField('Mobile phone number')
+    timezone = SelectField('Timezone', choices=[(tz,tz) for tz in pytz.common_timezones])
 
     def __init__(self, *args, **kwargs):
         """Create instance."""
         super(EditReminder, self).__init__(*args, **kwargs)
+
+    def validate_timezone(self, field):
+        if field.data not in pytz.common_timezones:
+            raise ValidationError('Not a valid timezone')
 
     def validate_sms_number(self, field):
         try:
