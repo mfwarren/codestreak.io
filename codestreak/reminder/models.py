@@ -25,6 +25,7 @@ class Reminder(SurrogatePK, Model):
     time_to_start = Column(db.Integer)
     sms_number = Column(db.String(16))
     sms_enabled = Column(db.Boolean(), default=False)
+    timezone = Column(db.String(32))  # string like 'Europe/Paris'
 
     @classmethod
     def for_username(cls, s):
