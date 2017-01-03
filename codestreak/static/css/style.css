@@ -65,23 +65,7 @@ textarea {
 .home h2 {
   font-size: 25px;
 }
-.row.silver {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#dbf7ff+0,9ee0ed+100 */
-  background: rgb(201, 226, 241); /* Old browsers */
-  background: -moz-linear-gradient(left, rgba(201, 226, 241,1) 0%, rgba(228, 236, 241,1) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(left, rgba(201, 226, 241,1) 0%,rgba(228, 236, 241,1) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to right, rgb(201, 226, 241) 0%,rgb(228, 236, 241) 100%);
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#9ee0ed',GradientType=1 ); /* IE6-9 */
-}
 
-.row.dark {
-  /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#b5bdc8+0,828c95+36,28343b+100;Grey+Black+3D */
-background: rgb(233, 237, 243); /* Old browsers */
-background: -moz-linear-gradient(left, rgba(233, 237, 243,1) 0%, rgba(209, 218, 226,1) 36%, rgba(171, 179, 183,1) 100%); /* FF3.6-15 */
-background: -webkit-linear-gradient(left, rgba(233, 237, 243,1) 0%,rgba(209, 218, 226,1) 36%,rgba(171, 179, 183,1) 100%); /* Chrome10-25,Safari5.1-6 */
-background: linear-gradient(to right, rgb(233, 237, 243) 0%,rgb(209, 218, 226) 36%,rgb(171, 179, 183) 100%);
-filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#b5bdc8', endColorstr='#28343b',GradientType=1 ); /* IE6-9 */
-}
 
 /* footer */
 
