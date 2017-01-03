@@ -26,10 +26,11 @@ class EditReminder(Form):
             raise ValidationError('Not a valid timezone')
 
     def validate_sms_number(self, field):
-        try:
-            client = TwilioLookupsClient()
-            match = client.phone_numbers.get(field.data)
-            field.data = match.phone_number
-        except Exception as ex:
-            print(ex)
-            raise ValidationError('Failed to validate this phone number')
+        if field.data != '' and field.data is not None:
+            try:
+                client = TwilioLookupsClient()
+                match = client.phone_numbers.get(field.data)
+                field.data = match.phone_number
+            except Exception as ex:
+                print(ex)
+                raise ValidationError('Failed to validate this phone number')
