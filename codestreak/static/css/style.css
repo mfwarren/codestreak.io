@@ -66,6 +66,9 @@ textarea {
   font-size: 25px;
 }
 
+h1 .highlight {
+  text-decoration: underline;
+}
 
 /* footer */
 

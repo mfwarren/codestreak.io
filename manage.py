@@ -38,21 +38,23 @@ def hourly_notification():
     hub = Github()
 
     for reminder in Reminder.query.filter_by(enabled=True).all():
+        today = datetime.datetime.utcnow()
+        if reminder.timezone is not None and reminder.timezone != '':
+            user_local_time = timezone(reminder.timezone).fromutc(today)
+            if user_local_time.hour < 13:
+                # avoid nagging notifications in the AM
+                continue
+
         try:
             hub_user = hub.get_user(reminder.slug)
 
-            event = hub_user.get_public_events()[0]  # the most recent public event
+            events = hub_user.get_public_events()
+            for event in events:
+                if event.type == 'PushEvent':
+                    break
 
             last_event_time = event.created_at
-            # last_event_time = last_event_time  + datetime.timedelta(hours=-5)  # UTC offset for EST
-            today = datetime.datetime.utcnow()  # + datetime.timedelta(hours=-5)
             delta = today - last_event_time
-
-            if reminder.timezone is not None and reminder.timezone != '':
-                user_local_time = timezone(reminder.timezone).fromutc(today)
-                if user_local_time.hour < 13:
-                    # avoid nagging notifications in the AM
-                    continue
 
             if last_event_time.day != today.day and delta > datetime.timedelta(hours=20):
                 if reminder.email_enabled:
