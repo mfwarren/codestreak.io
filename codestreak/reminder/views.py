@@ -54,7 +54,7 @@ def settings():
         if histogram[date] == 0:
             break
         streak_days += 1
-    if histogram[base] > 0:
+    if histogram[base.date()] > 0:
         streak_days += 1
 
     for event in events:
