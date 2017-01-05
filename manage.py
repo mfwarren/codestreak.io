@@ -14,6 +14,7 @@ from codestreak.app import create_app
 from codestreak.database import db
 from codestreak.settings import DevConfig, ProdConfig
 from codestreak.reminder.models import Reminder
+from codestreak.extensions import sentry
 
 CONFIG = ProdConfig if os.environ.get('TEST_ENV') == 'prod' else DevConfig
 HERE = os.path.abspath(os.path.dirname(__file__))
@@ -64,6 +65,7 @@ def hourly_notification():
                 if reminder.sms_enabled:
                     sms_notify(event, reminder)
         except Exception as ex:
+            sentry.captureException()
             print("Crashed on {}".format(reminder.slug))
 
 
