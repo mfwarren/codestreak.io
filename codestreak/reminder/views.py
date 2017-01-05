@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 """User views."""
+import os
 from collections import Counter
 import datetime
 from functools import wraps
@@ -35,7 +36,7 @@ def settings():
         reminder.save()
         return redirect(url_for('reminder.settings'))
 
-    hub = Github()
+    hub = Github(os.getenv('GITHUB_API_TOKEN'))
     hub_user = hub.get_user(reminder.slug)
 
     events = hub_user.get_public_events()

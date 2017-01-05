@@ -35,7 +35,7 @@ def hourly_notification():
     from codestreak.sms import sms_notify
     from pytz import timezone
     import humanize
-    hub = Github()
+    hub = Github(os.getenv('GITHUB_API_TOKEN'))
 
     for reminder in Reminder.query.filter_by(enabled=True).all():
         today = datetime.datetime.utcnow()
