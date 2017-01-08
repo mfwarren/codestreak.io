@@ -11,11 +11,10 @@ from twilio.rest.lookups import TwilioLookupsClient
 class EditReminder(Form):
     """Reminder form."""
 
-    enabled = BooleanField('Enabled')
-    email_enabled = BooleanField('Notify By Email Enabled')
-    sms_enabled = BooleanField('Notify By SMS Enabled')
-    sms_number = StringField('Mobile phone number')
-    timezone = SelectField('Timezone', choices=[(tz,tz) for tz in pytz.common_timezones])
+    email_enabled = BooleanField('Send Notifications By Email')
+    sms_enabled = BooleanField('Send Notifications By SMS')
+    sms_number = StringField('Mobile phone number: ')
+    timezone = SelectField("Timezone (so it doesn't bug you all night): ", choices=[(tz,tz) for tz in pytz.common_timezones])
 
     def __init__(self, *args, **kwargs):
         """Create instance."""

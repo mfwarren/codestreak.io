@@ -20,20 +20,19 @@
 
     <p>Emails will be sent to <i>{{ session.profile['email'] }}</i><p>
 
-    {% from "_formhelpers.html" import render_field %}
+    {% from "_formhelpers.html" import render_field, render_checkbox %}
     <form method=post action=".">
         {{ form.csrf_token }}
-    <dl>
-        {{ render_field(form.enabled) }}
-        {{ render_field(form.email_enabled) }}
-        {{ render_field(form.sms_enabled) }}
+        {{ render_checkbox(form.email_enabled) }}
+        {{ render_checkbox(form.sms_enabled) }}
         {{ render_field(form.sms_number) }}
         {{ render_field(form.timezone) }}
-    </dl>
-    <p><input class="btn btn-primary" type=submit value=Update>
+    <p><input class="btn btn-primary" type=submit value=Update></p>
+    <div class="alert alert-warning">
+        <strong>BE AWARE! </strong> This service is meant to be annoying! It will send you LOTS of messages until you push code.
+    </div>
     </form>
 
-    <small>Note: improvements to this page are coming soon</small>
 
 
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>

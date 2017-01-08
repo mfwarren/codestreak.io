@@ -5,9 +5,10 @@ from collections import Counter
 import datetime
 from functools import wraps
 
-from flask import Blueprint, render_template, redirect, session, url_for
+from flask import Blueprint, render_template, redirect, session, url_for, request
 from github import Github
 from pytz import timezone
+import twilio.twiml
 
 from codestreak.reminder.models import Reminder
 from codestreak.reminder.forms import EditReminder
@@ -23,6 +24,39 @@ def requires_auth(f):
         return f(*args, **kwargs)
 
     return decorated
+
+
+@blueprint.route('/sms', methods=['GET', 'POST'])
+def twilio_incoming_sms():
+    message = request.values.get('Body', '').upper().strip()
+    from_number = request.values.get('From', None)
+    reminder = Reminder.query.filter_by(sms_number=from_number).first()
+
+    resp = twilio.twiml.Response()
+
+    if message in ['STOP', 'STOPALL', 'UNSUBSCRIBE', 'CANCEL', 'END', 'QUIT']:
+        if reminder:
+            reminder.sms_enabled = False
+            reminder.save()
+            resp.message("OK, you will stop recieving these notifications")
+        else:
+            resp.message("Could not find this phone number registered, login to https://codestreak.io to modify your preferences.")
+
+    elif message in ['UNSTOP', 'START']:
+        if reminder:
+            reminder.sms_enabled = True
+            reminder.save()
+            resp.message("OK, your SMS notifications are re-enabled")
+        else:
+            resp.message("Could not find this phone number registered, login to https://codestreak.io to modify your preferences.")
+
+    elif message in ['HELP', 'INFO']:
+        resp.message("https://CodeStreak.io. Daily coding challenge. Reply 'STOP' to cancel notifications")
+
+    else:
+        resp.message("Sorry, I'm not programmed to respond")
+
+    return str(resp)
 
 
 @blueprint.route('/', methods=['GET', 'POST'])
