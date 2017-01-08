@@ -41,8 +41,8 @@ def hourly_notification():
     for reminder in Reminder.query.filter_by(enabled=True).all():
         today = datetime.datetime.utcnow()
         if reminder.timezone is not None and reminder.timezone != '':
-            user_local_time = timezone(reminder.timezone).fromutc(today)
-            if user_local_time.hour < 13:
+            today = timezone(reminder.timezone).fromutc(today)
+            if today.hour < 13:
                 # avoid nagging notifications in the AM
                 continue
 
@@ -55,9 +55,15 @@ def hourly_notification():
                     break
 
             last_event_time = event.created_at
+
+            # timezone adjust to user's local time
+            if reminder.timezone is not None and reminder.timezone != '':
+                last_event_time = timezone(reminder.timezone).fromutc(last_event_time)
+
             delta = today - last_event_time
 
             if last_event_time.day != today.day and delta > datetime.timedelta(hours=20):
+
                 if reminder.email_enabled:
                     notify('Your last commit was {}'.format(humanize.naturaltime(event.created_at)), reminder.email)
             if last_event_time.day != today.day and delta > datetime.timedelta(hours=22):
