@@ -78,13 +78,19 @@ def settings():
     events = hub_user.get_public_events()
 
     # calculate the streak
-    base = datetime.datetime.today()
+    base = datetime.datetime.utcnow()
+    if reminder.timezone is not None and reminder.timezone != '':
+        base = timezone(reminder.timezone).fromutc(base)
+
     date_list = [(base - datetime.timedelta(days=x)).date() for x in range(0, 365)]
     histogram = Counter()
     {(base - datetime.timedelta(days=x)).date(): 0 for x in range(0, 365)}
     for event in events:
         if event.type == 'PushEvent':
-            histogram[event.created_at.date()] += 1
+            event_time = event.created_at
+            if reminder.timezone is not None and reminder.timezone != '':
+                event_time = timezone(reminder.timezone).fromutc(event_time)
+            histogram[event_time.date()] += 1
 
     streak_days = 0
     for date in date_list[1:]:
