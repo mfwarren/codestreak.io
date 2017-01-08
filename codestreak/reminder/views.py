@@ -6,6 +6,7 @@ import datetime
 from functools import wraps
 
 from flask import Blueprint, render_template, redirect, session, url_for, request
+from ..extensions import csrf_protect
 from github import Github
 from pytz import timezone
 import twilio.twiml
@@ -27,6 +28,7 @@ def requires_auth(f):
 
 
 @blueprint.route('/sms', methods=['GET', 'POST'])
+@csrf_protect.exempt
 def twilio_incoming_sms():
     message = request.values.get('Body', '').upper().strip()
     from_number = request.values.get('From', None)
