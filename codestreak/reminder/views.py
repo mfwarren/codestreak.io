@@ -79,8 +79,10 @@ def settings():
 
     # calculate the streak
     base = datetime.datetime.utcnow()
+    today = datetime.datetime.utcnow()
     if reminder.timezone is not None and reminder.timezone != '':
         base = timezone(reminder.timezone).fromutc(base)
+        today = timezone(reminder.timezone).fromutc(today)
 
     date_list = [(base - datetime.timedelta(days=x)).date() for x in range(0, 365)]
     histogram = Counter()
@@ -103,8 +105,6 @@ def settings():
     for event in events:
         if event.type == 'PushEvent':
             break
-
-    today = datetime.datetime.utcnow()
 
     return render_template('reminders/settings.html', form=form,
         today=today.date(),
