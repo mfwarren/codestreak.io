@@ -41,7 +41,10 @@ SUBJECT_LINES = [
     'keep your perfect score going 💯',
     'coding idea: What could you automate?',
     'how about coding hello world in a new language?',
-    'are there any libraries you are curious to try out?'
+    'are there any libraries you are curious to try out?',
+    'try re-doing something you did recently (without looking) and see if you can do it better or faster',
+    'try a rosetta code practice problem',
+    'can you write a program that prints out its own source code?'
 ]
 
 
