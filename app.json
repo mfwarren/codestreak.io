@@ -6,5 +6,8 @@
     },
     "addons": [
         "dokku-postgres"
-    ]
+    ],
+    "env": {
+        "POSTGRES_IMAGE_VERSION": "9.6.1"
+    }
 }
