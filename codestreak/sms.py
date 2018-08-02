@@ -24,6 +24,8 @@ SUBJECT_LINES = [
 
 
 def sms_notify(github_event, reminder):
+    # disabling sms for now
+    return
 
     text = random.choice(SUBJECT_LINES)
 
