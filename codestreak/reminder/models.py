@@ -5,7 +5,7 @@ import os
 from codestreak.database import Column, Model, SurrogatePK, db
 from codestreak.auth0Token import Auth0Token
 
-from auth0.v2.management import Auth0
+from auth0.v3.management import Auth0
 
 auth0_token = Auth0Token()
 

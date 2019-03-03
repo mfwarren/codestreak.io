@@ -10,6 +10,9 @@ from flask_migrate import Migrate, MigrateCommand
 from flask_script import Command, Manager, Option, Server, Shell
 from flask_script.commands import Clean, ShowUrls
 
+from dotenv import load_dotenv
+load_dotenv()
+
 from codestreak.app import create_app
 from codestreak.database import db
 from codestreak.settings import DevConfig, ProdConfig

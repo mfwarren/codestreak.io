@@ -5,7 +5,7 @@ import pytz
 from wtforms import BooleanField, StringField, SelectField
 from wtforms.validators import ValidationError
 
-from twilio.rest.lookups import TwilioLookupsClient
+from twilio.rest import Client as TwilioLookupsClient
 
 
 class EditReminder(Form):
