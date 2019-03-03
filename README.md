@@ -1,4 +1,8 @@
 #  The 'Code Streak' Project
+<a href="https://fosterous.com/u/mfwarren/codestreak"><img src="https://fosterous.com/project/1/badge.svg" style="max-width:100%;" alt="Fosterous"></a>
+
+# Fostered By:
+![Matt Warren](https://fosterous.com/users/avatar/mfwarren.png "Matt Warren")
 
 
 **Note**: Contributions are welcome!
